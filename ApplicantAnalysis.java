@@ -90,6 +90,8 @@ public class ApplicantAnalysis {
     static LinkedList<String> select(TreeMap<String,Integer> candidateScores, int cutoff){
         LinkedList<String> successfullAplicants = new LinkedList<String>();
         Iterator<String> applicantsSearch = candidateScores.keySet().iterator();
+        //applicantsSearch iterates through the keys of the TreeMap and add's the key to the
+        //ArrayList if the value contained in the key is greater or equal to the cutoff point
         while(applicantsSearch.hasNext()){
             String key = applicantsSearch.next();
             if(candidateScores.get(key)>=cutoff){
@@ -97,7 +99,6 @@ public class ApplicantAnalysis {
             }
         }
         return successfullAplicants;
-        
     }
 
     static int pointsScore(String[] subjectGrades){
@@ -122,13 +123,16 @@ public class ApplicantAnalysis {
         gradeToPoints.put("O8",0);
 
         int score=0;
+        //ArrayList allscores stores all the grades of applicants
         ArrayList<Integer> allScores = new ArrayList<Integer>();
         for(int i=0;i<subjectGrades.length;i++){
             allScores.add(gradeToPoints.get(subjectGrades[i]));
         }
+        //ArrayList allScores is put into descending order
         Collections.sort(allScores);
         Collections.sort(allScores, Collections.reverseOrder());
 
+        //The first six grades are added to int score to calculate the applicants total score
         for(int j=0;j<6;j++){
             score += allScores.get(j);
         }
