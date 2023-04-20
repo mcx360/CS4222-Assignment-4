@@ -1,5 +1,9 @@
 //Michal Kornacki
 //ID:22361979
+//Group members:
+//Filip Kapusciak ID:22343091
+//Karthik Santhosh Madhav ID:22350527
+//Stephen McNeill Killeen ID:22359206
 import java.util.*;
 import java.io.*;
 
