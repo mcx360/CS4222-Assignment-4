@@ -88,55 +88,45 @@ public class ApplicantAnalysis {
     }
 
     static LinkedList<String> select(TreeMap<String,Integer> candidateScores, int cutoff){
-        LinkedList<String> successfullAplicants = new LinkedList<String>();
-        Iterator<String> applicantsSearch = candidateScores.keySet().iterator();
-        //applicantsSearch iterates through the keys of the TreeMap and add's the key to the
-        //ArrayList if the value contained in the key is greater or equal to the cutoff point
-        while(applicantsSearch.hasNext()){
-            String key = applicantsSearch.next();
-            if(candidateScores.get(key)>=cutoff){
-                successfullAplicants.add(key);
-            }
-        }
-        return successfullAplicants;
+        LinkedList<String> passed = new LinkedList<>();
+
+ for (String applicant : candidateScores.keySet()) {
+     if (candidateScores.get(applicant) >= cutoff) {
+         passed.add(applicant);
+     }
+ }
+ return passed;
     }
 
     static int pointsScore(String[] subjectGrades){
-        TreeMap<String,Integer> gradeToPoints = new TreeMap<String,Integer>();
-        //Mapping higherlevel subjects
-        gradeToPoints.put("H1",100);
-        gradeToPoints.put("H2",88);
-        gradeToPoints.put("H3",77);
-        gradeToPoints.put("H4",66);
-        gradeToPoints.put("H5",56);
-        gradeToPoints.put("H6",46);
-        gradeToPoints.put("H7",37);
-        gradeToPoints.put("H8",0);
-        //Mapping ordinarylevel subjects
-        gradeToPoints.put("O1",56);
-        gradeToPoints.put("O2",46);
-        gradeToPoints.put("O3",37);
-        gradeToPoints.put("O4",28);
-        gradeToPoints.put("O5",20);
-        gradeToPoints.put("O6",12);
-        gradeToPoints.put("O7",0);
-        gradeToPoints.put("O8",0);
+        TreeMap<String, Integer> gradePoints = new TreeMap<>();
+int pointsScore = 0;
+gradePoints.put("H1", 100);
+gradePoints.put("H2", 88);
+gradePoints.put("H3", 77);
+gradePoints.put("H4", 66);
+gradePoints.put("H5", 56);
+gradePoints.put("H6", 46);
+gradePoints.put("H7", 37);
+gradePoints.put("H8", 0);
 
-        int score=0;
-        //ArrayList allscores stores all the grades of applicants
-        ArrayList<Integer> allScores = new ArrayList<Integer>();
-        for(int i=0;i<subjectGrades.length;i++){
-            allScores.add(gradeToPoints.get(subjectGrades[i]));
-        }
-        //ArrayList allScores is put into descending order
-        Collections.sort(allScores);
-        Collections.sort(allScores, Collections.reverseOrder());
+ gradePoints.put("O1", 56);
+ gradePoints.put("O2", 46);
+ gradePoints.put("O3", 37);
+ gradePoints.put("O4", 28);
+ gradePoints.put("O5", 20);
+ gradePoints.put("O6", 12);
+ gradePoints.put("O7", 0);
+ gradePoints.put("O8", 0);
 
-        //The first six grades are added to int score to calculate the applicants total score
-        for(int j=0;j<6;j++){
-            score += allScores.get(j);
-        }
-        return score;
+   
+ Arrays.sort(subjectGrades);
+ Arrays.sort(subjectGrades, Collections.reverseOrder());
+ 	for(int i=0; i<6; i++) {
+ 		int points = gradePoints.get(subjectGrades[i]);
+ 	        pointsScore += points;
+ 	}
+ 	return pointsScore;
 
     }
 }
