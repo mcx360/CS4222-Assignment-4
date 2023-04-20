@@ -102,35 +102,42 @@ public class ApplicantAnalysis {
  return passed;
     }
 
-    static int pointsScore(String[] subjectGrades){
-        TreeMap<String, Integer> gradePoints = new TreeMap<>();
-int pointsScore = 0;
-gradePoints.put("H1", 100);
-gradePoints.put("H2", 88);
-gradePoints.put("H3", 77);
-gradePoints.put("H4", 66);
-gradePoints.put("H5", 56);
-gradePoints.put("H6", 46);
-gradePoints.put("H7", 37);
-gradePoints.put("H8", 0);
-
- gradePoints.put("O1", 56);
- gradePoints.put("O2", 46);
- gradePoints.put("O3", 37);
- gradePoints.put("O4", 28);
- gradePoints.put("O5", 20);
- gradePoints.put("O6", 12);
- gradePoints.put("O7", 0);
- gradePoints.put("O8", 0);
-
-   
- Arrays.sort(subjectGrades);
- Arrays.sort(subjectGrades, Collections.reverseOrder());
- 	for(int i=0; i<6; i++) {
- 		int points = gradePoints.get(subjectGrades[i]);
- 	        pointsScore += points;
- 	}
- 	return pointsScore;
-
+    static int pointsScore(String[] applicantGrades){TreeMap<String, Integer> gradePoints = new TreeMap<>();
+        int pointsScore = 0;
+        gradePoints.put("H1", 100);
+        gradePoints.put("H2", 88);
+        gradePoints.put("H3", 77);
+        gradePoints.put("H4", 66);
+        gradePoints.put("H5", 56);
+        gradePoints.put("H6", 46);
+        gradePoints.put("H7", 37);
+        gradePoints.put("H8", 0);
+    
+        gradePoints.put("O1", 56);
+        gradePoints.put("O2", 46);
+        gradePoints.put("O3", 37);
+        gradePoints.put("O4", 28);
+        gradePoints.put("O5", 20);
+        gradePoints.put("O6", 12);
+        gradePoints.put("O7", 0);
+        gradePoints.put("O8", 0);
+    
+                                                            //Collections.reverseOrder()
+        TreeMap<Integer, String> sortedGrades = new TreeMap<>();
+        for (String grade : applicantGrades) {
+            int points = gradePoints.get(grade);
+            sortedGrades.put(points, grade);
+        }
+    
+        int count = 0;
+        for (Map.Entry<Integer, String> entry : sortedGrades.entrySet()) {
+            if (count == 6) {
+                break;
+            }
+            pointsScore += entry.getKey();
+            count++;
+        }
+        
+            return pointsScore;
     }
 }
