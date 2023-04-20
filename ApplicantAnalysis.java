@@ -123,17 +123,14 @@ public class ApplicantAnalysis {
         gradePoints.put("O7", 0);
         gradePoints.put("O8", 0);
 
-        Arrays.sort(subjectGrades, new Comparator<String>() {
-            public int compare(String a, String b) {
-                return Integer.compare(gradePoints.get(a), gradePoints.get(b));
-            }
-        });
-
-        Iterator<String> iterator = Arrays.asList(subjectGrades).iterator();
-        for(int i = 0; i < 6 && iterator.hasNext(); i++) {
-            pointsScore += gradePoints.get(iterator.next());
-        }
-
+       Integer[] numbersSorted = new Integer[subjectGrades.length];
+       for(int i=0; i<subjectGrades.length; i++) {
+           numbersSorted[i] = gradePoints.get(subjectGrades[i]);
+       }
+       Arrays.sort(numbersSorted, Collections.reverseOrder());
+       for(int i=0;i<6;i++) {
+           pointsScore += numbersSorted[i];
+       }
             return pointsScore;
     }
 }
