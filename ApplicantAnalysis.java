@@ -102,42 +102,47 @@ public class ApplicantAnalysis {
  return passed;
     }
 
-    static int pointsScore(String[] applicantGrades){TreeMap<String, Integer> gradePoints = new TreeMap<>();
-        int pointsScore = 0;
-        gradePoints.put("H1", 100);
-        gradePoints.put("H2", 88);
-        gradePoints.put("H3", 77);
-        gradePoints.put("H4", 66);
-        gradePoints.put("H5", 56);
-        gradePoints.put("H6", 46);
-        gradePoints.put("H7", 37);
-        gradePoints.put("H8", 0);
-    
-        gradePoints.put("O1", 56);
-        gradePoints.put("O2", 46);
-        gradePoints.put("O3", 37);
-        gradePoints.put("O4", 28);
-        gradePoints.put("O5", 20);
-        gradePoints.put("O6", 12);
-        gradePoints.put("O7", 0);
-        gradePoints.put("O8", 0);
-    
-                                                            //Collections.reverseOrder()
-        TreeMap<Integer, String> sortedGrades = new TreeMap<>();
-        for (String grade : applicantGrades) {
-            int points = gradePoints.get(grade);
-            sortedGrades.put(points, grade);
-        }
-    
-        int count = 0;
-        for (Map.Entry<Integer, String> entry : sortedGrades.entrySet()) {
-            if (count == 6) {
-                break;
+    static int pointsScore(String[] applicantGrades){
+        TreeMap<String, Integer> gradePoints = new TreeMap<>();
+	int pointsScore = 0;
+    gradePoints.put("H1", 100);
+    gradePoints.put("H2", 88);
+    gradePoints.put("H3", 77);
+    gradePoints.put("H4", 66);
+    gradePoints.put("H5", 56);
+    gradePoints.put("H6", 46);
+    gradePoints.put("H7", 37);
+    gradePoints.put("H8", 0);
+
+    gradePoints.put("O1", 56);
+    gradePoints.put("O2", 46);
+    gradePoints.put("O3", 37);
+    gradePoints.put("O4", 28);
+    gradePoints.put("O5", 20);
+    gradePoints.put("O6", 12);
+    gradePoints.put("O7", 0);
+    gradePoints.put("O8", 0);
+
+    Arrays.sort(applicantGrades, new Comparator<String>() {
+        public int compare(String a, String b) {
+            if (a.startsWith("H") && b.startsWith("H")) {
+                return a.compareTo(b);
+            } else if (a.startsWith("O") && b.startsWith("O")) {
+                return a.compareTo(b);
+            } else if (a.startsWith("H") && b.startsWith("O")) {
+                return -1;
+            } else {
+                return 1;
             }
-            pointsScore += entry.getKey();
-            count++;
         }
-        
-            return pointsScore;
+    });
+    
+    for(int i=0; i<6; i++) {
+        String grade = applicantGrades[i];
+        int points = gradePoints.get(grade.toUpperCase());
+        pointsScore += points;
+    }
+    
+    	return pointsScore;
     }
 }
