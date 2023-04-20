@@ -1,7 +1,7 @@
 //Michal Kornacki
 //ID:22361979
-//Filip Kapusciak
-//ID:22343091
+//Group members:
+//Filip Kapusciak ID:22343091
 import java.util.*;
 import java.io.*;
 
