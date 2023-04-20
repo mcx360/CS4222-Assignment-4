@@ -102,47 +102,38 @@ public class ApplicantAnalysis {
  return passed;
     }
 
-    static int pointsScore(String[] applicantGrades){
+    static int pointsScore(String[] subjectGrades){
         TreeMap<String, Integer> gradePoints = new TreeMap<>();
-	int pointsScore = 0;
-    gradePoints.put("H1", 100);
-    gradePoints.put("H2", 88);
-    gradePoints.put("H3", 77);
-    gradePoints.put("H4", 66);
-    gradePoints.put("H5", 56);
-    gradePoints.put("H6", 46);
-    gradePoints.put("H7", 37);
-    gradePoints.put("H8", 0);
+        int pointsScore = 0;
+        gradePoints.put("H1", 100);
+        gradePoints.put("H2", 88);
+        gradePoints.put("H3", 77);
+        gradePoints.put("H4", 66);
+        gradePoints.put("H5", 56);
+        gradePoints.put("H6", 46);
+        gradePoints.put("H7", 37);
+        gradePoints.put("H8", 0);
 
-    gradePoints.put("O1", 56);
-    gradePoints.put("O2", 46);
-    gradePoints.put("O3", 37);
-    gradePoints.put("O4", 28);
-    gradePoints.put("O5", 20);
-    gradePoints.put("O6", 12);
-    gradePoints.put("O7", 0);
-    gradePoints.put("O8", 0);
+        gradePoints.put("O1", 56);
+        gradePoints.put("O2", 46);
+        gradePoints.put("O3", 37);
+        gradePoints.put("O4", 28);
+        gradePoints.put("O5", 20);
+        gradePoints.put("O6", 12);
+        gradePoints.put("O7", 0);
+        gradePoints.put("O8", 0);
 
-    Arrays.sort(applicantGrades, new Comparator<String>() {
-        public int compare(String a, String b) {
-            if (a.startsWith("H") && b.startsWith("H")) {
-                return a.compareTo(b);
-            } else if (a.startsWith("O") && b.startsWith("O")) {
-                return a.compareTo(b);
-            } else if (a.startsWith("H") && b.startsWith("O")) {
-                return -1;
-            } else {
-                return 1;
+        Arrays.sort(subjectGrades, new Comparator<String>() {
+            public int compare(String a, String b) {
+                return Integer.compare(gradePoints.get(a), gradePoints.get(b));
             }
+        });
+
+        Iterator<String> iterator = Arrays.asList(subjectGrades).iterator();
+        for(int i = 0; i < 6 && iterator.hasNext(); i++) {
+            pointsScore += gradePoints.get(iterator.next());
         }
-    });
-    
-    for(int i=0; i<6; i++) {
-        String grade = applicantGrades[i];
-        int points = gradePoints.get(grade.toUpperCase());
-        pointsScore += points;
-    }
-    
-    	return pointsScore;
+
+            return pointsScore;
     }
 }
